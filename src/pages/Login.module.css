@@ -1,0 +1,90 @@
+/* src/pages/Login.module.css */
+
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 140px); /* Ajusta para a altura do cabeçalho e rodapé */
+  background-color: #f0f2f5; /* Cor de fundo suave */
+  padding: 20px;
+  width: 100vh;
+}
+
+.loginCard {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box; /* Garante que padding e border estão incluídos na largura */
+}
+
+.loginCard h2 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+  text-align: left; /* Alinha labels à esquerda */
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  box-sizing: border-box; /* Inclui padding na largura total */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formGroup input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 14px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.submitButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.errorMessage {
+  color: #e74c3c;
+  margin-top: 20px;
+  font-size: 14px;
+}
