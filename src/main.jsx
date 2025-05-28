@@ -13,6 +13,8 @@ import Home from './pages/Home.jsx'; // Importe a nova página Home
 import Professionals from './pages/Professionals.jsx'; // Importe a nova página Professionals
 import UserProfile from './pages/UserProfile.jsx'; // Importe a nova página UserProfile
 import { isAuthenticated, logout } from './services/auth.js'; // Importe as funções de auth
+import './index.css';
+
 
 
 // Loader para rotas privadas (que exigem autenticação)
@@ -52,20 +54,25 @@ const router = createBrowserRouter([
         loader: privateLoader, // Protege esta rota
       },
       {
-        path: "users/me", // Nova rota para o perfil do usuário
+        path: "profile", // Nova rota para o perfil do usuário
         element: <UserProfile />,
         loader: privateLoader, // Protege esta rota
       },
       // Opcional: Rota para tratar caminhos não encontrados (404)
       {
-        path: "*",
-        element: <div style={{ textAlign: 'center', padding: '50px' }}>
-                   <h2>404 - Página Não Encontrada</h2>
-                   <p>A rota que você tentou acessar não existe.</p>
-                   <button onClick={() => window.location.href = isAuthenticated() ? '/home' : '/'}>
-                     {isAuthenticated() ? 'Ir para Home' : 'Ir para Login'}
-                   </button>
-                 </div>,
+      path: "*",
+      element: (
+        <div className="text-center p-12">
+          <h2 className="text-2xl font-bold mb-4 text-red-600">404 - Página Não Encontrada</h2>
+           <p className="mb-6 text-gray-700">A rota que você tentou acessar não existe.</p>
+          <button
+            onClick={() => window.location.href = isAuthenticated() ? '/home' : '/'}
+           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+           >
+           {isAuthenticated() ? 'Ir para Home' : 'Ir para Login'}
+         </button>
+        </div>
+       ),
       },
     ],
   },

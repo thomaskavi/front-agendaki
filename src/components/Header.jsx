@@ -1,14 +1,16 @@
+// src/components/Header.jsx
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../services/auth.js'; // Importa a função de logout
+import { logout } from '../services/auth.js';
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(); // Chama a função de logout do serviço
-    navigate('/'); // Redireciona para a tela de login
+    logout();
+    navigate('/');
   };
 
   const toggleDropdown = () => {
@@ -16,122 +18,42 @@ const Header = () => {
   };
 
   return (
-    <header style={headerStyle}>
-      <div style={logoStyle}>
-        <Link to="/home" style={linkStyle}>AgendaKi</Link>
+    <header className="bg-gray-900 p-4 text-white flex justify-between items-center shadow-md">
+      <div className="text-2xl font-bold">
+        <Link to="/home" className="text-white no-underline hover:text-gray-300">AgendaKi</Link>
       </div>
-      <nav style={navStyle}>
-        <ul style={ulStyle}>
+      <nav className="flex items-center">
+        {/* Usando 'space-x-6' para espaçamento padrão entre os itens de navegação */}
+        <ul className="flex items-center space-x-6 list-none m-0 p-0">
           <li>
-            <Link to="/home" style={navLinkStyle}>Início</Link>
+            <Link to="/home" className="text-white no-underline px-4 py-2 hover:bg-gray-700 rounded-md transition-colors duration-300">Início</Link>
           </li>
           <li>
-            <Link to="/professionals" style={navLinkStyle}>Ver Profissionais</Link>
+            <Link to="/professionals" className="text-white no-underline px-4 py-2 hover:bg-gray-700 rounded-md transition-colors duration-300">Ver Profissionais</Link>
           </li>
-          <li style={dropdownContainerStyle}>
-            <button onClick={toggleDropdown} style={dropdownButtonStyle}>
-              Minha Conta ▼
+          <li className="relative">
+            <button
+              onClick={toggleDropdown}
+              className="bg-transparent text-white border border-transparent px-4 py-2 rounded-md cursor-pointer text-base transition-colors duration-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Minha Conta <span className="ml-1 text-sm">▼</span>
             </button>
             {isDropdownOpen && (
-              <div style={dropdownContentStyle}>
-                <Link to="/users/me" style={dropdownItemStyle} onClick={() => setIsDropdownOpen(false)}>Meu Perfil</Link>
+              <div className="absolute bg-gray-700 min-w-[160px] shadow-lg z-10 right-0 rounded-md overflow-hidden top-full mt-2">
+                <Link to="/profile" className="text-white px-4 py-3 no-underline block text-left hover:bg-gray-600 transition-colors duration-300" onClick={() => setIsDropdownOpen(false)}>Meu Perfil</Link>
               </div>
             )}
           </li>
           <li>
-            <button onClick={handleLogout} style={logoutButtonStyle}>Logout</button>
+            {/* Usando 'ml-6' para separar o botão de Logout */}
+            <button onClick={handleLogout} className="bg-red-600 text-white border-none px-5 py-2 rounded-md cursor-pointer text-base ml-6 hover:bg-red-700 transition-colors duration-300 font-semibold shadow-sm">
+              Logout
+            </button>
           </li>
         </ul>
       </nav>
     </header>
   );
-};
-
-// Estilos básicos para o Header (você pode transferir para um CSS file)
-const headerStyle = {
-  backgroundColor: '#282c34',
-  padding: '15px 20px',
-  color: 'white',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
-};
-
-const logoStyle = {
-  fontSize: '24px',
-  fontWeight: 'bold',
-};
-
-const linkStyle = {
-  color: 'white',
-  textDecoration: 'none',
-};
-
-const navStyle = {
-  display: 'flex',
-};
-
-const ulStyle = {
-  listStyle: 'none',
-  margin: 0,
-  padding: 0,
-  display: 'flex',
-  alignItems: 'center',
-};
-
-const navLinkStyle = {
-  color: 'white',
-  textDecoration: 'none',
-  padding: '10px 15px',
-  display: 'block',
-  transition: 'background-color 0.3s ease',
-};
-
-const dropdownContainerStyle = {
-  position: 'relative',
-};
-
-const dropdownButtonStyle = {
-  backgroundColor: 'transparent',
-  color: 'white',
-  border: 'none',
-  padding: '10px 15px',
-  cursor: 'pointer',
-  fontSize: '16px',
-  transition: 'background-color 0.3s ease',
-};
-
-const dropdownContentStyle = {
-  position: 'absolute',
-  backgroundColor: '#333',
-  minWidth: '160px',
-  boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
-  zIndex: 1,
-  right: 0, // Alinha o dropdown à direita do botão
-  borderRadius: '5px',
-  overflow: 'hidden',
-};
-
-const dropdownItemStyle = {
-  color: 'white',
-  padding: '12px 16px',
-  textDecoration: 'none',
-  display: 'block',
-  textAlign: 'left',
-  transition: 'background-color 0.3s ease',
-};
-
-const logoutButtonStyle = {
-  backgroundColor: '#e74c3c', // Cor vermelha para logout
-  color: 'white',
-  border: 'none',
-  padding: '8px 15px',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  fontSize: '15px',
-  marginLeft: '15px',
-  transition: 'background-color 0.3s ease',
 };
 
 export default Header;

@@ -16,14 +16,12 @@ const UserProfile = () => {
       try {
         setLoading(true);
         setError(null);
-        // Ajuste a rota para o endpoint que retorna o perfil do usuário logado
         const response = await api.get('/users/me');
         setUser(response.data);
       } catch (err) {
         console.error('Erro ao buscar perfil do usuário:', err);
         setError('Falha ao carregar perfil. Tente novamente mais tarde.');
 
-        // Se o erro for de autenticação, redireciona para o login
         if (err.response && (err.response.status === 401 || err.response.status === 403)) {
           alert('Sessão expirada ou não autorizado. Por favor, faça login novamente.');
           logout();
@@ -38,53 +36,48 @@ const UserProfile = () => {
   }, [navigate]);
 
   if (loading) {
-    return <div style={{ textAlign: 'center', padding: '20px' }}>Carregando perfil...</div>;
+    return (
+      <div className="text-center py-5">
+        Carregando perfil...
+      </div>
+    );
   }
 
   if (error) {
-    return <div style={{ textAlign: 'center', padding: '20px', color: 'red' }}>Erro: {error}</div>;
+    return (
+      <div className="text-center py-5 text-red-600">
+        Erro: {error}
+      </div>
+    );
   }
 
   if (!user) {
-    return <div style={{ textAlign: 'center', padding: '20px' }}>Nenhum dado de perfil encontrado.</div>;
+    return (
+      <div className="text-center py-5">
+        Nenhum dado de perfil encontrado.
+      </div>
+    );
   }
 
   return (
-    <div style={{ padding: 20, textAlign: 'center' }}>
-      <h2>Meu Perfil</h2>
-      <div style={profileCardStyle}>
+    <div className="p-5 text-center">
+      <h2 className="text-2xl font-bold mb-5">Meu Perfil</h2>
+      <div className="bg-white border border-gray-200 rounded-lg p-6 max-w-lg mx-auto shadow-md">
         {user.profileImageUrl && (
-          <img src={user.profileImageUrl} alt={user.name} style={profileImageStyle} />
+          <img
+            src={user.profileImageUrl}
+            alt={user.name}
+            className="w-32 h-32 rounded-full object-cover mb-4 border-4 border-blue-500 mx-auto"
+          />
         )}
         <p><strong>Nome:</strong> {user.name}</p>
         <p><strong>Email:</strong> {user.email}</p>
         <p><strong>Telefone:</strong> {user.phone}</p>
         {user.profession && <p><strong>Profissão:</strong> {user.profession}</p>}
         {user.slug && <p><strong>Slug:</strong> {user.slug}</p>}
-        {/* Adicione outras informações do perfil aqui */}
       </div>
     </div>
   );
-};
-
-// Estilos para a página de Perfil (você pode transferir para um CSS file)
-const profileCardStyle = {
-  backgroundColor: '#f9f9f9',
-  border: '1px solid #ddd',
-  borderRadius: '8px',
-  padding: '20px',
-  maxWidth: '500px',
-  margin: '20px auto',
-  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-};
-
-const profileImageStyle = {
-  width: '120px',
-  height: '120px',
-  borderRadius: '50%',
-  objectFit: 'cover',
-  marginBottom: '15px',
-  border: '3px solid #3498db',
 };
 
 export default UserProfile;

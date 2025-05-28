@@ -1,14 +1,11 @@
-// src/pages/Home.jsx
-
 import React from 'react';
 
 const Home = () => {
   return (
-    <div style={{ padding: 20, textAlign: 'center' }}>
-      <h2>Bem-vindo à Home Page!</h2>
-      <p>Este é o painel principal da sua aplicação.</p>
+    <div className="p-5 text-center">
+      <h2 className="text-2xl font-semibold mb-4">Bem-vindo à Home Page!</h2>
+      <p className="mb-2">Este é o painel principal da sua aplicação.</p>
       <p>Use o menu superior para navegar.</p>
-      {/* Você pode adicionar mais conteúdo e widgets aqui */}
     </div>
   );
 };
